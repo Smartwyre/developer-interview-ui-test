@@ -31,7 +31,6 @@ export default function Home() {
       },
     ).then(response => {
       response.json().then(d => {
-        console.log(d);
         setD(d.docs)
       })
     });
