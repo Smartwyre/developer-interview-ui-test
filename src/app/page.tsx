@@ -16,27 +16,37 @@ const Modal = (props: any) => {
 }
 
 export default function Home() {
-  const [data, setData] = useState<any[]>([]);
-  const [openId, setOpenId] = useState(null);
+  const [d, setD] = useState<any[]>([]);
+  const [modal, setModal] = useState(null);
   useEffect(() => {
-    fetch('https://api.spacexdata.com/v4/crew/query', {method: 'POST'}).then(response => {
+    fetch(
+      'https://api.spacexdata.com/v4/crew/query', 
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({options: {limit: 50}})
+      },
+    ).then(response => {
       response.json().then(d => {
         console.log(d);
-        setData(d.docs)
+        setD(d.docs)
       })
     });
   }, []);
   
   return (
-    <main className={styles.main}>
+    <main style={{display: 'flex', 'alignItems': 'center', "justifyContent": 'center'}}>
       <div>
         <h1>Crew Members</h1>
-        {data.map(d => (
-          <div onClick={() => setOpenId(d.id)}>{d.name} {d.status}</div>
+        {d.map(d => (
+          <div onClick={() => setModal(d.id)}>{d.name} {d.status}</div>
         ))}
       </div>
 
-      {openId && <Modal data={data.find(d => d.id === openId)} closeModal={() => setOpenId(null)} />}
+      {modal && <Modal data={d.find(d => d.id === modal)} closeModal={() => setModal(null)} />}
     </main>
   )
 }

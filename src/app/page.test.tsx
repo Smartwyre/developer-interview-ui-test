@@ -14,7 +14,7 @@ import Home from './page';
 });
 
 describe('Home', () => {
-  it('should renders crew member name and status', () => {
+  it('should render crew member name and status', () => {
     render(<Home />);
 
     screen.findByText('Robert Behnken');
