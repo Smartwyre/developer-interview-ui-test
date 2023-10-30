@@ -48,7 +48,6 @@ export default function Home() {
       setCrew(data.docs);
       setTotalDocs(data.totalDocs);
       setIsLoading(false)
-      return;
     })
     .catch(() => {
       setIsLoading(false)
